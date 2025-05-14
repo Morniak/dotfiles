@@ -57,10 +57,6 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
 # Input preferences
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-# Disable Spotlight shortcut
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0;}"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0;}"
-
 # Set Dock size to minimum (16 is the smallest allowed)
 defaults write com.apple.dock tilesize -int 16
 
@@ -116,7 +112,7 @@ brew install fzf zoxide wget bat jq zsh-autosuggestions spaceship
 # --- GUI Apps ---
 
 print_section "Installing GUI apps"
-brew install --cask raycast iterm2 firefox vlc spotify 1password proxyman visual-studio-code
+brew install --cask loop raycast iterm2 firefox vlc spotify 1password proxyman visual-studio-code
 
 # --- Fonts ---
 
@@ -177,6 +173,15 @@ echo "\n✅ All Raycast extensions processed."
 # print_section "Installing Mac App Store apps"
 # command -v mas &>/dev/null || brew install mas
 # mas install 497799835 # Xcode
+
+# --- iTerm2 profile ---
+echo "⚙️  iTerm2 profile must be configured manually:"
+echo "  → Settings > Profiles > Window > Side Margins: 30"
+echo "  → Settings > Profiles > Window > Top & Bottom Margins: 20"
+read
+
+# --- Bonus ---
+defaults write com.MrKai77.Loop timesLooped 10000 # unlock all Loop icons
 
 # --- Cleanup ---
 
