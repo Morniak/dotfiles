@@ -111,13 +111,6 @@ else
   git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
 fi
 
-if [ -f "$HOME/.zshrc" ]; then
-  source "$HOME/.zshrc"
-  echo "✅ .zshrc sourced"
-else
-  echo "⚠️ No .zshrc file found"
-fi
-
 # 9. Custom Keyboard Layout (Aer)
 print_section "Installing Aer Keyboard Layout"
 AER_REPO="https://github.com/Morniak/aer.git"
