@@ -35,6 +35,9 @@ else
   echo "✅ Homebrew already installed."
 fi
 
+eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
+eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
+
 brew analytics off
 brew update
 
