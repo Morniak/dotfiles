@@ -31,12 +31,15 @@ print_section "Installing Homebrew"
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Add Homebrew to current shell environment
+  eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
+  eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
 else
   echo "✅ Homebrew already installed."
+  eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
+  eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
 fi
-
-eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
-eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
 
 brew analytics off
 brew update
