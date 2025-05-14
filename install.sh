@@ -5,17 +5,18 @@ print_section() {
   echo "\n🔧 $1...\n"
 }
 
-# Request sudo access upfront
-print_section "Requesting sudo access"
-if sudo -v; then
-  # Keep sudo session alive
-  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-else
-  echo "❌ Failed to obtain sudo privileges."
-  exit 1
-fi
+# # Request sudo access upfront
+# print_section "Requesting sudo access"
+# if sudo -v; then
+#   # Keep sudo session alive
+#   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+# else
+#   echo "❌ Failed to obtain sudo privileges."
+#   exit 1
+# fi
 
-# 1. Xcode Command Line Tools
+# --- Xcode Command Line Tools ---
+
 print_section "Checking Xcode Command Line Tools"
 if ! xcode-select -p &>/dev/null; then
   echo "Installing Xcode Command Line Tools..."
@@ -26,7 +27,8 @@ else
   echo "✅ Xcode Command Line Tools already installed."
 fi
 
-# 2. macOS Settings
+# --- macOS Settings ---
+
 print_section "Applying macOS settings"
 
 # General Finder and Dock preferences
@@ -67,7 +69,8 @@ defaults write com.apple.dock magnification -bool false
 
 killall Dock
 
-# 3. Dotfiles
+# --- Dotfiles ---
+
 print_section "Setting up dotfiles"
 if [ -d "$HOME/dotfiles" ]; then
   echo "✅ Dotfiles already exist. Skipping clone."
@@ -78,23 +81,8 @@ else
   git --git-dir=$HOME/dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
 fi
 
-# 4. Zsh Config
-print_section "Sourcing .zshrc"
+# --- Homebrew ---
 
-OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
-
-if [ -d "$OH_MY_ZSH_DIR" ]; then
-  echo "✅ Oh My Zsh already installed."
-else
-  echo "📥 Cloning Oh My Zsh..."
-  git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
-fi
-
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-# 5. Homebrew
 print_section "Installing Homebrew"
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
@@ -119,19 +107,23 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew analytics off
 brew update
 
-# 6. CLI Tools
-print_section "Installing CLI tools"
-brew install fzf zoxide wget bat jq
+# --- CLI Tools ---
 
-# 7. GUI Apps
+print_section "Installing CLI tools"
+brew install fzf zoxide wget bat jq zsh-autosuggestions spaceship
+
+# --- GUI Apps ---
+
 print_section "Installing GUI apps"
 brew install --cask raycast iterm2 firefox vlc spotify 1password proxyman visual-studio-code
 
-# 8. Fonts
+# --- Fonts ---
+
 print_section "Installing fonts"
 brew install --cask sf-symbols font-sf-mono font-sf-pro font-hack-nerd-font font-jetbrains-mono font-fira-code
 
-# 9. Custom Keyboard Layout (Aer)
+# --- Custom Keyboard Layout ---
+
 print_section "Installing Aer Keyboard Layout"
 AER_REPO="https://github.com/Morniak/aer.git"
 AER_DIR="/tmp/aer"
@@ -161,7 +153,8 @@ echo "4. Log out and back in if needed\n"
 open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension"
 read
 
-# 10. Raycast Extensions
+# --- Raycast Extensions ---
+
 print_section "Raycast Extension Setup"
 raycast_extensions=(
   "raycast/github"
@@ -178,12 +171,14 @@ done
 
 echo "\n✅ All Raycast extensions processed."
 
-# 11. Mac App Store apps
+# --- Mac App Store apps ---
+
 # print_section "Installing Mac App Store apps"
 # command -v mas &>/dev/null || brew install mas
 # mas install 497799835 # Xcode
 
-# 12. Cleanup
+# --- Cleanup ---
+
 print_section "Cleaning up"
 brew cleanup
 sudo -k
