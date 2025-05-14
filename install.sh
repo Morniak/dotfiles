@@ -152,7 +152,7 @@ echo "3. Set as default if desired"
 echo "4. Log out and back in if needed\n"
 
 open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension"
-read "?Press [Enter] to continue..."
+read
 
 # --- Raycast Extensions ---
 
