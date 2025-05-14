@@ -83,6 +83,10 @@ else
   git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
 fi
 
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
 # 5. Homebrew
 print_section "Installing Homebrew"
 if ! command -v brew &>/dev/null; then
@@ -102,12 +106,15 @@ else
   eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
 fi
 
+(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 brew analytics off
 brew update
 
 # 6. CLI Tools
 print_section "Installing CLI tools"
-brew install zoxide wget bat jq starship zsh-autosuggestions
+brew install fzf zoxide wget bat jq
 
 # 7. GUI Apps
 print_section "Installing GUI apps"
@@ -165,9 +172,9 @@ done
 echo "\n✅ All Raycast extensions processed."
 
 # 11. Mac App Store apps
-print_section "Installing Mac App Store apps"
-command -v mas &>/dev/null || brew install mas
-mas install 497799835 # Xcode
+# print_section "Installing Mac App Store apps"
+# command -v mas &>/dev/null || brew install mas
+# mas install 497799835 # Xcode
 
 # 12. Cleanup
 print_section "Cleaning up"
