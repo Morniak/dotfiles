@@ -174,14 +174,14 @@ echo "\n✅ All Raycast extensions processed."
 
 # --- Mac App Store apps ---
 
-# print_section "Installing Mac App Store apps"
-# command -v mas &>/dev/null || brew install mas
-# mas install 497799835 # Xcode
+print_section "Installing Mac App Store apps"
+command -v mas &>/dev/null || brew install mas
+mas install 497799835 # Xcode
 
 # --- iTerm2 profile ---
 echo "⚙️  iTerm2 profile must be configured manually:"
-echo "  → Settings > Profiles > Window > Side Margins: 30"
-echo "  → Settings > Profiles > Window > Top & Bottom Margins: 20"
+echo "  → Settings > Appearance > Panes > Side Margins: 30"
+echo "  → Settings > Appearance > Panes > Top & Bottom Margins: 20"
 read
 
 # --- Bonus ---
