@@ -55,6 +55,11 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
 # Input preferences
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
+# Disable Spotlight shortcut
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0;}"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0;}"
+killall Dock
+
 # 3. Dotfiles
 print_section "Setting up dotfiles"
 if [ -d "$HOME/dotfiles" ]; then
