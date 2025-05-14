@@ -101,8 +101,9 @@ else
   eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
 fi
 
-(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
+HOMEBREW_PREFIX=$(brew --prefix)
+echo 'eval "$('"$HOMEBREW_PREFIX"'/bin/brew shellenv)"' >> ~/.zprofile
+eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
 
 brew analytics off
 brew update
@@ -151,7 +152,7 @@ echo "3. Set as default if desired"
 echo "4. Log out and back in if needed\n"
 
 open "x-apple.systempreferences:com.apple.Keyboard-Settings.extension"
-read
+read "?Press [Enter] to continue..."
 
 # --- Raycast Extensions ---
 
