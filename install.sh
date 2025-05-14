@@ -114,6 +114,10 @@ brew install fzf zoxide wget bat jq zsh-autosuggestions spaceship
 print_section "Installing GUI apps"
 brew install --cask loop raycast iterm2 firefox vlc spotify 1password proxyman visual-studio-code
 
+# --- XCode extension ---
+print_section "Installing XCode extension"
+brew install hkamran80/things/multiliner
+
 # --- Fonts ---
 
 print_section "Installing fonts"
@@ -127,7 +131,7 @@ AER_DIR="/tmp/aer"
 
 [ -d "$AER_DIR" ] && echo "🧹 Removing previous clone" && rm -rf "$AER_DIR"
 
-echo "📥 Cloning Aer layout..."
+echo "📥 Cloning Ær layout..."
 git clone "$AER_REPO" "$AER_DIR"
 
 LAYOUT_SRC="$AER_DIR/v2/osx/aer-v2.keylayout"
