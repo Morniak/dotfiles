@@ -94,6 +94,7 @@ print_section "Setting up dotfiles"
 if [ -d "$HOME/dotfiles" ]; then
   echo "✅ Dotfiles already exist. Skipping clone."
 else
+  rm "$HOME/.zshrc"
   git clone --bare https://github.com/Morniak/dotfiles $HOME/dotfiles
   git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout
   git --git-dir=$HOME/dotfiles/ --work-tree=$HOME config --local status.showUntrackedFiles no
