@@ -101,7 +101,16 @@ fi
 
 # 8. Zsh Config
 print_section "Sourcing .zshrc"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
+
+if [ -d "$OH_MY_ZSH_DIR" ]; then
+  echo "✅ Oh My Zsh already installed."
+else
+  echo "📥 Cloning Oh My Zsh..."
+  git clone https://github.com/ohmyzsh/ohmyzsh.git "$OH_MY_ZSH_DIR"
+fi
+
 if [ -f "$HOME/.zshrc" ]; then
   source "$HOME/.zshrc"
   echo "✅ .zshrc sourced"
