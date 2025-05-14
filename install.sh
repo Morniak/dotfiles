@@ -5,15 +5,15 @@ print_section() {
   echo "\n🔧 $1...\n"
 }
 
-# # Request sudo access upfront
-# print_section "Requesting sudo access"
-# if sudo -v; then
-#   # Keep sudo session alive
-#   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-# else
-#   echo "❌ Failed to obtain sudo privileges."
-#   exit 1
-# fi
+# Request sudo access upfront
+print_section "Requesting sudo access"
+if sudo -v; then
+  # Keep sudo session alive
+  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+else
+  echo "❌ Failed to obtain sudo privileges."
+  exit 1
+fi
 
 # --- Xcode Command Line Tools ---
 
