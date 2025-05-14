@@ -58,6 +58,13 @@ defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 # Disable Spotlight shortcut
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "{enabled = 0;}"
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "{enabled = 0;}"
+
+# Set Dock size to minimum (16 is the smallest allowed)
+defaults write com.apple.dock tilesize -int 16
+
+# Enable magnification (optional, if not already enabled)
+defaults write com.apple.dock magnification -bool false
+
 killall Dock
 
 # 3. Dotfiles
