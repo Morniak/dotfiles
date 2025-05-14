@@ -28,13 +28,20 @@ fi
 
 # 2. Install Homebrew
 print_section "Installing Homebrew"
+
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  # Add Homebrew to current shell environment
-  eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
-  eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null
+  # Detect Homebrew install location and set environment for current script
+  if [[ -f /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -f /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  else
+    echo "❌ Homebrew installed but 'brew' not found in expected locations."
+    exit 1
+  fi
 else
   echo "✅ Homebrew already installed."
   eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
