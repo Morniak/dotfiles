@@ -73,7 +73,6 @@ brew install --cask visual-studio-code
 
 # 5. Fonts
 print_section "Installing fonts"
-brew tap homebrew/cask-fonts
 brew install --cask sf-symbols
 brew install --cask font-sf-mono
 brew install --cask font-sf-pro
